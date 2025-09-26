@@ -422,19 +422,16 @@ python tests/deepfake_test.py
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🏆 Hackathon Information
-
-**Event**: Bank of Baroda Hackathon  
+## **Team**
 **Theme**: Hybrid Identity Monitoring & Deepfake-Resistant Verification  
-**Team**: [Your Team Name]  
-**Date**: [Hackathon Date]  
+- Vikhram S
+- Kailash Karthikeyan M
+- Gowtham P G
 
 ## 📞 Support
 
 For support and questions:
-- 📧 Email: support@identity-monitoring.com
-- 💬 Discord: [Discord Server]
-- 📖 Documentation: [Documentation Site]
+- 📧 Email: vikhrams@saveetha.ac.in
 - 🐛 Issues: [GitHub Issues]
 
 ## 🙏 Acknowledgments
@@ -446,4 +443,4 @@ For support and questions:
 
 ---
 
-**Built with ❤️ for the Bank of Baroda Hackathon**
+**Built with ❤️ for the Bank of Baroda Hackathon by Vikhram S and Team**
