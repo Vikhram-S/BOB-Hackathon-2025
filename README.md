@@ -432,7 +432,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For support and questions:
 - 📧 Email: vikhrams@saveetha.ac.in
-- 🐛 Issues: [GitHub Issues]
+- 🐛 Issues: [GitHub Issues](https://github.com/Vikhram-S/BOB-Hackathon-2025/issues)
 
 ## 🙏 Acknowledgments
 
