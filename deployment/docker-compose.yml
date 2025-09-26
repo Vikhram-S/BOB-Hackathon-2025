@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # Main API Service
+  identity-api:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./identity_monitoring.db
+      - REDIS_URL=redis://redis:6379
+      - DEPLOYMENT_MODE=hybrid
+      - ON_PREM_ENDPOINT=http://identity-api:8000
+      - CLOUD_ENDPOINT=${CLOUD_ENDPOINT}
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - identity-network
+
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - identity-network
+
+  # PostgreSQL for production database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=identity_monitoring
+      - POSTGRES_USER=identity_user
+      - POSTGRES_PASSWORD=identity_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - identity-network
+
+  # Monitoring Dashboard
+  monitoring-dashboard:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_ENDPOINT=http://identity-api:8000
+    depends_on:
+      - identity-api
+    networks:
+      - identity-network
+
+  # Nginx Load Balancer
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - identity-api
+    networks:
+      - identity-network
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  identity-network:
+    driver: bridge
